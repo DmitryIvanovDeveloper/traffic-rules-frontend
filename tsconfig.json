@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "noEmit": true,
+    "target": "ESNext", // Поддержка современных возможностей JavaScript
+    "module": "ESNext", // Модули ES6 для работы с Vue 3
+    "lib": ["DOM", "ESNext"], // Браузерное окружение и последние версии JS
+    "allowSyntheticDefaultImports": true, // Упрощение импорта модулей
+    "checkJs": true,
+    "esModuleInterop": true, // Для совместимости с CommonJS-модулями
+    "strict": true, // Включение строгого режима TypeScript
+    "forceConsistentCasingInFileNames": false,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@business/*": ["src/business/*"],
+      "@infrastructure/*": ["src/infrastructure/*"],
+      "@repository/*": ["src/infrastructure/domain/repository/*"],
+      "@service/*": ["src/infrastructure/domain/service/*"],
+      "@/modules/*": ["src/modules/*"],
+      "@assets/*": ["src/assets/*"],
+    },
+
+    "types": ["element-plus/global"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true, // Пропуск проверки типов в node_modules
+    "noImplicitAny": true, // Можно отключить для облегчения настройки
+    "strictPropertyInitialization": false // Удобно для работы с DI и декораторами
+  },
+  "include": ["src/**/*", "node_modules/vue-material-design-icons/**/*.d.ts", "public/Build"],
+  "exclude": ["node_modules", "**/node_modules/*", "dist"]
+}

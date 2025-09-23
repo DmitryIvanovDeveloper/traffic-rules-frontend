@@ -1,0 +1,51 @@
+import { CreateQuestionResponse } from "../../../business/dtos/create-question.dto";
+import { LoadAnswerResponse, LoadQuestionResponse, LoadQuestionsRequest } from "../../../business/dtos/load-question.dto";
+import GetQuestionsResponse, { GetAnswerResponse } from "./get-questions.response";
+import PostQuestionResponse from "./post-questions.request";
+
+
+export function mapQuestionsResponseToDto(rawData: GetQuestionsResponse): LoadQuestionResponse {
+    const { id, text, points, level_id, answers, lang_iso } = rawData;
+
+    const mappedAnswers = answers.map(answer => new LoadAnswerResponse(
+        answer.id,
+        answer.text,
+        answer.is_correct,
+        answer.lang_iso,
+        answer.question_id,
+    ))
+
+    const mappedQuestion = new LoadQuestionResponse(
+        id,
+        text,
+        points,
+        level_id,
+        lang_iso,
+        mappedAnswers
+    );
+
+    return mappedQuestion;
+}
+
+export function mapPostQuestionsResponseToDto(rawData: PostQuestionResponse): CreateQuestionResponse {
+    const { id, text, points, level_id, answers, lang_iso } = rawData;
+
+    const mappedAnswers = answers.map(answer => new LoadAnswerResponse(
+        answer.id,
+        answer.text,
+        answer.is_correct,
+        answer.lang_iso,
+        answer.question_id,
+    ))
+
+    const mappedQuestion = new LoadQuestionResponse(
+        id,
+        text,
+        points,
+        level_id,
+        lang_iso,
+        mappedAnswers
+    );
+
+    return mappedQuestion;
+}

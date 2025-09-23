@@ -1,0 +1,32 @@
+
+const TYPES = {
+    QuestionsPresenter: Symbol.for('QuestionsPresenter'),
+    QuestionsController: Symbol.for('QuestionsController'),
+    QuestionsHttpRepository: Symbol.for('QuestionsHttpRepository'),
+    QuestionsLocalRepository: Symbol.for('QuestionsLocalRepository'),
+    LoadQuestionsUseCase: Symbol.for('LoadQuestionsUseCase'),
+    CreateQuestionUseCase: Symbol.for('CreateQuestionUseCase'),
+    InitializeQuestionsUseCase: Symbol.for('InitializeQuestionsUseCase'),
+    SelectQuestionUseCase: Symbol.for('SelectQuestionUseCase'),
+    UpdateQuestionUseCase: Symbol.for('UpdateQuestionUseCase'),
+    DeleteQuestionUseCase: Symbol.for('DeleteQuestionUseCase'),
+    DeleteQuestionLocalUseCase: Symbol.for('DeleteQuestionLocalUseCase'),
+    DeleteQuestionsLocalUseCase: Symbol.for('DeleteQuestionsLocalUseCase'),
+    ReorderQuestionsUseCase: Symbol.for('ReorderQuestionsUseCase'),
+    ClearQuestionsLocalUseCase: Symbol.for('ClearQuestionsLocalUseCase'),
+    LevelSelectedEventHandler: Symbol.for('IAsyncEventHandler<LevelSelectedEvent>'),
+    SaveProjectEventHandler: Symbol.for('IAsyncEventHandler<SaveProjectEvent>'),
+    LevelCreatedEventHandler: Symbol.for('IAsyncEventHandler<LevelCreatedEvent>'),
+    NextQuestionEventHandler: Symbol.for('ISyncEventHandler<NextQuestionEvent>'),
+    PreviousQuestionEventHandler: Symbol.for('ISyncEventHandler<PreviouseQuestionEvent>'),
+    QuestionCreatedEventHandler:  Symbol.for('ISyncEventHandler<QuestionCreatedEvent>'),
+    QuestionsLoadedEventHandler: Symbol.for('ISyncEventHandler<QuestionsLoadedEvent>'),
+    LoadQuestionsEventHandler: Symbol.for('IAsyncEventHandler<LoadQuestionsEvent>'),
+    LevelDeletedEventHandler: Symbol.for('IAsyncEventHandler<LevelDeletedEvent>'),
+    QuestionDeletedEventHandler:  Symbol.for('IAsyncEventHandler<QuestionDeletedEvent>'),
+    ProjectSelectedEventHandler:  Symbol.for('ISyncEventHandler<ProjectSelectedEvent>'),
+    NextQuestionUseCase: Symbol.for('NextQuestionUseCase'),
+    PreviousQuestionUseCase: Symbol.for('PreviousQuestionUseCase'),
+};
+
+export { TYPES };

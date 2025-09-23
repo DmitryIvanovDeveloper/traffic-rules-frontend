@@ -1,0 +1,35 @@
+@font-face {
+    font-family: Roboto-700;
+    src: url('/fonts/roboto/Roboto-Bold.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: Roboto-400;
+    src: url('/fonts/roboto/Roboto-Regular.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: Roboto-500;
+    src: url('/fonts/roboto/Roboto-Medium.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: Roboto-600;
+    src: url('/fonts/roboto/Roboto-SemiBold.ttf') format('opentype');
+}
+
+
+@font-face {
+    font-family: Rubik-700;
+    src:  url('/fonts/rubik/Rubik-Bold.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: Rubik-400;
+    src:  url('/fonts/rubik/Rubik-Regular.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: Rubik-500;
+    src:  url('/fonts/rubik/Rubik-Medium.ttf') format('opentype');
+}

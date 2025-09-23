@@ -1,0 +1,26 @@
+const TYPES = {
+    LevelsPresenter: Symbol.for('LevelsPresenter'),
+    LevelsController: Symbol.for('LevelsController'),
+    LevelsHttpRepository: Symbol.for('LevelsHttpRepository'),
+    LevelsLocalRepository: Symbol.for('LevelsLocalRepository'),
+    LevelsService: Symbol.for('LevelService'),
+    LoadPresentLevelsUseCase: Symbol.for('LoadPresentLevelsUseCase'),
+    SelectLevelUseCase: Symbol.for('SelectLevelUseCase'),
+    CreateLevelUseCase: Symbol.for('CreateLevelUseCase'),
+    UpdateLevelUseCase: Symbol.for('UpdateLevelUseCase'),
+    DeleteLevelUseCase: Symbol.for('DeleteLevelUseCase'),
+    DeleteLevelsLocalUseCase: Symbol.for('DeleteLevelsLocalUseCase'),
+    ClearLevelsLocalUseCase: Symbol.for('ClearLevelsLocalUseCase'),
+    DeleteLevelLocalUseCase: Symbol.for('DeleteLevelLocalUseCase'),
+    DeleteLevelsLocalByProjectIdUseCase: Symbol.for('DeleteLevelsLocalByProjectIdUseCase'),
+    ProjectSelectedEventHandler: Symbol.for('IAsyncEventHandler<ProjectSelectedEvent>'),
+    SaveProjectEventHandler: Symbol.for('IAsyncEventHandler<SaveProjectEvent>'),
+    LevelDeletedEventHandler: Symbol.for('IAsyncEventHandler<LevelDeletedEvent>'),
+    ProjectDeletedEventHandler: Symbol.for('IAsyncEventHandler<ProjectDeletedEvent>'),
+    ProjectCreatedEventHandler: Symbol.for('IAsyncEventHandler<ProjectCreatedEvent>'),
+    LevelCreatedEventHandler: Symbol.for('IAsyncEventHandler<LevelCreatedEvent>'),
+    LevelsLoadedEventHandler: Symbol.for('ISyncEventHandler<LevelsLoadedEvent>'),
+    ProjectSelectedEventHandlerSync: Symbol.for('ISyncEventHandler<ProjectSelectedEvent>'),
+};
+
+export { TYPES };

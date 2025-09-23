@@ -1,0 +1,30 @@
+{
+    "id": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
+    "lang_iso": "EN",
+    "text": "По чем рыба",
+    "points": 5,
+    "level_id": "6e141e9c-f598-4160-bb8b-518532c11ea2",
+    "answers": [
+        {
+            "id": "a2934d72-ee26-4464-9143-7f1e757bf9f0",
+            "lang_iso": "EN",
+            "text": "Красивое",
+            "is_correct": true,
+            "question_id": "a1b2c3d4-e5f6-7890-1234-56789abcdef0"
+        },
+        {
+            "id": "8876f6e7-5487-4816-afdd-a826b69a5a6d",
+            "lang_iso": "EN",
+            "text": "15 камней",
+            "is_correct": false,
+            "question_id": "a1b2c3d4-e5f6-7890-1234-56789abcdef0"
+        },
+        {
+            "id": "530b7179-eefb-4066-9444-0dbc54a1f8d6",
+            "lang_iso": "EN",
+            "text": "Отдам бесплатно",
+            "is_correct": false,
+            "question_id": "a1b2c3d4-e5f6-7890-1234-56789abcdef0"
+        }
+    ]
+}

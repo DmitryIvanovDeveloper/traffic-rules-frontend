@@ -1,0 +1,36 @@
+[
+    {
+        "id": "93b8e2d1-548b-4335-a24d-415e623bfe25",
+        "text": "Тестовая ачивка",
+        "correct_answers_in_row": 5,
+        "time_completed": 0,
+        "stars": 0,
+        "earned_money": 0,
+        "lang_iso": "RU",
+        "project_id": "97182aa6-b951-49ee-a3df-636e94c84ce1",
+        "description": "Описание Тест"
+    },
+    {
+        "id": "fdf88d9b-6541-4a23-8d92-cb66ac28cbab",
+        "text": "Высший пилотаж",
+        "correct_answers_in_row": 10,
+        "time_completed": 0,
+        "stars": 0,
+        "earned_money": 0,
+        "lang_iso": "RU",
+        "project_id": "97182aa6-b951-49ee-a3df-636e94c84ce1",
+        "description": "Описание пилотаж"
+    },
+    {
+        "id": "20888821-40fd-4096-9895-4f67e51851be",
+        "text": "Мастер фламастер",
+        "correct_answers_in_row": 3,
+        "time_completed": 0,
+        "stars": 0,
+        "earned_money": 0,
+        "lang_iso": "RU",
+        "project_id": "97182aa6-b951-49ee-a3df-636e94c84ce1",
+        "description": "Описание Мастера фламастера"
+        
+    }
+]

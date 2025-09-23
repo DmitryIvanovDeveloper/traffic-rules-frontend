@@ -1,0 +1,102 @@
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
+@import './fonts.css';
+@config "./tailwind.config.js";
+
+:root {
+    line-height: 1.5;
+    font-weight: 400;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    --p-primary: #01aeea;
+    --p-secondary: #ffffff;
+    --p-inputtext-bg: rgba(243, 247, 251, 1);
+    --p-inputtext-bg-secondary: white;
+    --p-inputtext-border: #fca5a5;
+    --p-inputtext-text: #253036;
+    --p-inputtext-text-placeholder: #6f9cb7;
+
+    --p-message-text-error: #ff6666;
+    --p-inputtext-label: #3b5d70;
+    --p-text-primary: #253036;
+    --p-border-primary: #e5edd8;
+
+    --p-button-disabled: #dadada;
+    --p-button-upload: #6fc700;
+
+    --p-primary-color: #01AEEA !important;
+}
+
+a {
+    color: var(--p-primary);
+}
+
+
+label {
+    font-family: Roboto-400;
+    font-size: 14px;
+    color: var(--p-inputtext-label);
+    text-align: left;
+}
+
+body {
+    margin: 0 auto;
+    padding: 0;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+}
+html {
+    height: 100vh;
+}
+
+.pointer {
+    color: var(--p-message-text-error);
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.card {
+    padding: 2em;
+}
+
+#app {
+    width: 100%;
+    min-width: 360px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: transparent;
+}
+
+body.scrolling ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+body ::-webkit-scrollbar-thumb {
+    background: transparent;
+    transition: background 0.5s ease;
+}
+
+@media (prefers-color-scheme: light) {
+  
+    a:hover {
+        /* color: #747bff; */
+    }
+    button {
+        /* background-color: #f9f9f9; */
+    }
+}
