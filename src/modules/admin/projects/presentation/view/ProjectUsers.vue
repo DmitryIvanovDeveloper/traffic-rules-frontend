@@ -14,8 +14,8 @@ const { users, remove } = defineProps<IEmailListProps>();
 <template>
 	<div class="space-y-4 bg-[#FFFFFF] grid grid-cols-3 gap-[10px] p-[10px] overflow-y-auto min-h-[200px]">
 		
-		<div v-for="user in users" :key="user.id" class=" gap-4">
-			<Chip :label="user.email" removable @remove="() => remove(user.id)">
+		<div v-for="user in users" :key="user?.id || 'unknown'" v-if="user && user.id" class=" gap-4">
+			<Chip :label="user.email || 'Unknown'" removable @remove="() => remove(user.id)">
 				<template #removeicon="{ removeCallback, keydownCallback }">
 					<i class="pi pi-minus-circle" @click="removeCallback" @keydown="keydownCallback" />
 				</template>

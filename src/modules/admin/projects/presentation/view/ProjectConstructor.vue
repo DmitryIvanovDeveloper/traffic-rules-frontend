@@ -2,13 +2,8 @@
 import LevelEditor from "@/modules/admin/levels/presentation/view/LevelEditor.vue";
 import QuestionEditor from "@/modules/admin/questions/presentation/view/QuestionEditor.vue";
 import ConstructorLayout from "@/ui/ConstructorLayout.vue";
-import { Button } from "primevue";
-import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/vue/24/solid";
-import { container } from "@/infrastructure/bootstrap/inversify.config";
-import ProjectsController from "../controller/projects.controller";
-import { TYPES } from "../../types";
 
-const controller = container.get<ProjectsController>(TYPES.ProjectsController)
+
 </script>
 
 <template>

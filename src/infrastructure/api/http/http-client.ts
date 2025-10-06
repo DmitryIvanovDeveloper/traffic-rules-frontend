@@ -15,7 +15,7 @@ export default class HttpClient implements IHttpClient {
         @inject(TYPES.AuthTokenUseCases)
         private readonly _authTokenUseCases: AuthTokenUseCases,
     ) {
-        this._baseUrl = import.meta.env.VITE_ENDPOINT_API;
+        this._baseUrl = import.meta.env.VITE_ENDPOINT_API || '/cards';
     }
 
     async request<TResponse, TRequest extends Record<string, any> | FormData | undefined>(
@@ -45,7 +45,10 @@ export default class HttpClient implements IHttpClient {
 
 
         try {
-            const response = await fetch(`${this._baseUrl}${endpoint}`, {
+            const url = endpoint.startsWith('/') 
+                ? `${this._baseUrl}${endpoint}` 
+                : `${this._baseUrl}/${endpoint}`;
+            const response = await fetch(url, {
                 method,
                 headers,
                 body: payload

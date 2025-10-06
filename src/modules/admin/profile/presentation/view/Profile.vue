@@ -62,7 +62,7 @@ import Analitics from './components/Analitics.vue'
                         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                             <div>
                                 <div class="text-xl sm:text-2xl font-bold text-gray-800">
-                                    5000₽<span class="text-sm font-normal">/Мес.</span>
+                                    $5000<span class="text-sm font-normal">/Мес.</span>
                                 </div>
                                 <div class="text-xs text-gray-500">Действует до: 17.08.2025</div>
                             </div>

@@ -104,6 +104,11 @@ export default class Level {
     }
 
     static toEntity(dto: ILevelCreateResponseDTO): Level {
+        // Проверяем обязательные поля
+        if (!dto.id || !dto.level || !dto.lang || !dto.projectId) {
+            throw new Error(`Invalid Level data: missing required fields. Data: ${JSON.stringify(dto)}`);
+        }
+
         return new Level({
             id: dto.id,
             name: dto.level,

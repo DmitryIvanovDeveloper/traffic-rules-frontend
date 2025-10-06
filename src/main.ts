@@ -21,6 +21,9 @@ import '@/modules/admin/levels/infrastructure/bootstrap/container'
 import '@/modules/admin/questions/infrastructure/bootstrap/container'
 import '@/modules/admin/achievements/infrastructure/bootstrap/container'
 import '@/modules/admin/members/infrastructure/bootstrap/container'
+import '@/modules/admin/customModels/infrastructure/bootstrap/container'
+import '@/modules/admin/modelVariants/infrastructure/bootstrap/container'
+import '@/modules/admin/damageTypes/infrastructure/bootstrap/container'
 
 import 'primeicons/primeicons.css';
 import Aura from '@primeuix/themes/aura';

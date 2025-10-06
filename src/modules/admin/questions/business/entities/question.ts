@@ -18,6 +18,7 @@ export interface QuestionProps {
 	readonly points?: number;
 	readonly levelId?: string;
 	readonly lang?: string;
+	readonly image?: string | null;
 	readonly answers?: ReadonlyArray<Answer>;
 	readonly edited?: boolean;
 	readonly deleting?: boolean;
@@ -31,6 +32,7 @@ export default class Question {
 	public readonly text: string;
 	public readonly points: number;
 	public readonly levelId: string;
+	public readonly image: string | null;
 	public readonly answers: ReadonlyArray<Answer>;
 	public readonly lang: string;
 	public readonly edited: boolean;
@@ -44,6 +46,7 @@ export default class Question {
 		this.text = props.text ?? "";
 		this.points = props.points ?? 0;
 		this.levelId = props.levelId ?? "";
+		this.image = props.image ?? null;
 		this.lang = props.lang ?? "en";
 		this.answers = props.answers?.map((a) => new Answer(a)) ?? [];
 		this.edited = props.edited ?? false;
@@ -199,18 +202,24 @@ export default class Question {
 	}
 
 	public static toEntity(dto: LoadQuestionResponse | CreateQuestionResponse | UpdateQuestionResponseDTO): Question {
-		const answers = dto.answers.map(
+		// Проверяем обязательные поля
+		if (!dto.id || !dto.text || dto.levelId === undefined) {
+			throw new Error(`Invalid Question data: missing required fields. Data: ${JSON.stringify(dto)}`);
+		}
+
+		const answers = (dto.answers || []).map(
 			(a) => new Answer({id: a.id, text: a.text, correct: a.correct, lang:a.lang, questionId: a.questionId})
 		);
 		return new Question({
 			id: dto.id,
 			text: dto.text,
-			points: dto.points,
+			points: dto.points || 0,
 			levelId: dto.levelId,
-			lang: dto.lang,
+			lang: dto.lang || "RU",
 			answers: answers,
 			edited: false,
 			deleting: false,
+			image: dto.image || null,
 		});
 	}
 

@@ -50,7 +50,7 @@ const goToConstructor = (): void => {
 	<ProjectItemList
 		v-else
 		:title="presenter.labels.title"
-		:items="presenter.levelsViewModel.value.map(i => ({
+		:items="(presenter.levelsViewModel.value || []).map(i => ({
             id: i.id,
             name: i.name.value as string,
             checked: false,

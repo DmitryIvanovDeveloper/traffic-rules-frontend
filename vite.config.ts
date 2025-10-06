@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 import svgLoader from 'vite-svg-loader';
 
 export default defineConfig({
-    base: '/hundred-cards-frontend/',
+    base: '/traffic-rules-frontend/',
     cacheDir: './node_modules/vite',
     plugins: [
         svgLoader(), 
@@ -28,13 +28,7 @@ export default defineConfig({
         fs: {
             strict: false,
         },
-        proxy: {
-            '/cards/': {
-                target: 'https://hundredcards.onrender.com',
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/cards/, ''),
-            },
-        },
+       
     },
     resolve: {
         extensions: ['.ts', '.vue'],

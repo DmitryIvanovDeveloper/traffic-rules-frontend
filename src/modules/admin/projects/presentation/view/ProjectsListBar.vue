@@ -46,7 +46,7 @@ const deleteProject = async (id: string): Promise<void> => {
     <ProjectItemList
         v-else
         :title="presenter.label.title"
-        :items="presenter.projectsViewModel.value.map(i => ({
+        :items="(presenter.projectsViewModel.value || []).map(i => ({
             id: i.id,
             name: i.name.value as string,
             checked: false,

@@ -18,7 +18,7 @@ const { onChange } = defineProps<IQuestionsSelectionProps>();
     <UniversalSelect
         label:=""
         :type="'multiple'"
-        :options="presenter.questionsViewModel.value.map(question => ({ label: question.id, value: question.name }))"
+        :options="(presenter.questionsViewModel.value || []).map(question => ({ label: question.id, value: question.name }))"
         :onChange="onChange"
     />
 </template>s

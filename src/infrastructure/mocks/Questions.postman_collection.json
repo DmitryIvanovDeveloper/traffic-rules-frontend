@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "1639d180-4bae-4021-9c74-c6b278376f65",
+		"name": "Questions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24434845",
+		"_collection_link": "https://web.postman.co/workspace/HundredCards-lcl~26951cb1-b243-4a1a-bb12-bec4bbc7be23/collection/38431410-1639d180-4bae-4021-9c74-c6b278376f65?action=share&source=collection_link&creator=24434845"
+	},
+	"item": [
+		{
+			"name": "Get questions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/cards/admin/questions/?level_id={{level_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cards",
+						"admin",
+						"questions",
+						""
+					],
+					"query": [
+						{
+							"key": "level_id",
+							"value": "{{level_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create question",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"lang_iso\": \"RU\",\n    \"text\": \"Что относится к механическим транспортным средствам?\",\n    \"points\": 2,\n    \"level_id\": \"ddeb154b-dd6f-4e55-9dff-d5ce7cdaa084\",\n    \"answers\":[\n        {\n            \"lang_iso\": \"RU\",\n            \"text\": \"Велосипед\"\n        },\n        {\n            \"lang_iso\": \"RU\",\n            \"text\": \"Мопед\",\n            \"is_correct\": true\n        },\n        {\n            \"lang_iso\": \"RU\",\n            \"text\": \"Электрический самокат\",\n            \"is_correct\": true\n\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/cards/admin/questions/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cards",
+						"admin",
+						"questions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update question",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"id\": \"391dcd35-cee0-4a8b-b951-e759a31ccdbb\",\n        \"lang_iso\": \"RU\",\n        \"text\": \"Как расшифровывается ПДД?\",\n        \"image\": null,\n        \"points\": 2,\n        \"level_id\": \"911534bd-e18f-48bd-b6aa-4857e77113bd\",\n        \"order\": 0,\n        \"is_published\": false,\n        \"answers\": [\n            {\n                \"id\": \"7b2cfcff-04fc-4c98-bec0-fc15c4e8853c\",\n                \"lang_iso\": \"RU\",\n                \"text\": \"Правила Дорожного Движения\",\n                \"is_correct\": true,\n                \"order\": 0,\n                \"question_id\": \"391dcd35-cee0-4a8b-b951-e759a31ccdbb\"\n            },\n            {\n                \"id\": \"4389936b-22f0-4231-a551-61647d59449d\",\n                \"lang_iso\": \"RU\",\n                \"text\": \"Answer 2\",\n                \"is_correct\": false,\n                \"order\": 0,\n                \"question_id\": \"391dcd35-cee0-4a8b-b951-e759a31ccdbb\"\n            },\n            {\n                \"id\": \"20f13b35-e065-4d2e-a644-67203ab42ce7\",\n                \"lang_iso\": \"RU\",\n                \"text\": \"Answer 3\",\n                \"is_correct\": false,\n                \"order\": 0,\n                \"question_id\": \"391dcd35-cee0-4a8b-b951-e759a31ccdbb\"\n            }\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/cards/admin/questions/{{question_id}}/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cards",
+						"admin",
+						"questions",
+						"{{question_id}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update only question",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"391dcd35-cee0-4a8b-b951-e759a31ccdbb\",\n    \"lang_iso\": \"RU\",\n    \"text\": \"Как расшифровывается ПДД?\",\n    \"image\": null,\n    \"points\": 2,\n    \"level_id\": \"911534bd-e18f-48bd-b6aa-4857e77113bd\",\n    \"order\": 0,\n    \"is_published\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/cards/admin/questions/{{question_id}}/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cards",
+						"admin",
+						"questions",
+						"{{question_id}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete question",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/cards/admin/questions/{{question_id}}/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cards",
+						"admin",
+						"questions",
+						"{{question_id}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all level's questions",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/cards/admin/questions/?level_id={{level_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cards",
+						"admin",
+						"questions",
+						""
+					],
+					"query": [
+						{
+							"key": "level_id",
+							"value": "{{level_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

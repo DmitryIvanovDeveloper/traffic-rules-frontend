@@ -92,6 +92,11 @@ export default class Project {
     }
 
     static toEntity(dto: CreateProjectResponseDTO | UpdateProjectResponseDTO): Project {
+        // Проверяем обязательные поля
+        if (!dto.id || !dto.name || !dto.userId) {
+            throw new Error(`Invalid Project data: missing required fields. Data: ${JSON.stringify(dto)}`);
+        }
+
         return new Project({
             id: dto.id, 
             name: dto.name, 
