@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      VITE_ENDPOINT_API: https://hundred-cards-b2c.onrender.com
     steps:
       - name: Checkout
         uses: actions/checkout@v4
