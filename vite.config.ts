@@ -10,6 +10,9 @@ import svgLoader from 'vite-svg-loader';
 export default defineConfig({
     base: '/traffic-rules-frontend/',
     cacheDir: './node_modules/vite',
+    define: {
+        'import.meta.env.VITE_ENDPOINT_API': JSON.stringify(process.env.VITE_ENDPOINT_API || ''),
+    },
     plugins: [
         svgLoader(), 
         vue(),
