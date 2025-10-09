@@ -63,36 +63,6 @@ export class CustomModelValidator {
       });
     }
 
-    // Валидация атрибутов
-    if (!input.attributes || input.attributes.length === 0) {
-      errors.push({
-        field: 'attributes',
-        message: 'Атрибуты обязательны',
-        code: 'REQUIRED'
-      });
-    } else {
-      if (input.attributes.length < this.validationRules.attributes.minCount) {
-        errors.push({
-          field: 'attributes',
-          message: `Должен быть минимум ${this.validationRules.attributes.minCount} атрибут`,
-          code: 'MIN_COUNT'
-        });
-      }
-      if (input.attributes.length > this.validationRules.attributes.maxCount) {
-        errors.push({
-          field: 'attributes',
-          message: `Максимум ${this.validationRules.attributes.maxCount} атрибутов`,
-          code: 'MAX_COUNT'
-        });
-      }
-
-      // Валидация каждого атрибута
-      input.attributes.forEach((attr, index) => {
-        const attributeErrors = this.validateAttribute(attr, index);
-        errors.push(...attributeErrors);
-      });
-    }
-
     // Валидация projectId
     if (!input.projectId) {
       errors.push({
@@ -165,37 +135,6 @@ export class CustomModelValidator {
         field: 'projectId',
         message: 'ID проекта должен быть валидным UUID',
         code: 'INVALID_FORMAT'
-      });
-    }
-
-    // Валидация атрибутов
-    if (!input.attributes || input.attributes.length === 0) {
-      errors.push({
-        field: 'attributes',
-        message: 'Атрибуты обязательны',
-        code: 'REQUIRED'
-      });
-    } else {
-      if (input.attributes.length < this.validationRules.attributes.minCount) {
-        errors.push({
-          field: 'attributes',
-          message: `Должен быть минимум ${this.validationRules.attributes.minCount} атрибут`,
-          code: 'MIN_COUNT'
-        });
-      }
-      
-      if (input.attributes.length > this.validationRules.attributes.maxCount) {
-        errors.push({
-          field: 'attributes',
-          message: `Максимум ${this.validationRules.attributes.maxCount} атрибутов`,
-          code: 'MAX_COUNT'
-        });
-      }
-
-      // Валидация каждого атрибута
-      input.attributes.forEach((attr, index) => {
-        const attributeErrors = this.validateAttribute(attr, index);
-        errors.push(...attributeErrors);
       });
     }
 
