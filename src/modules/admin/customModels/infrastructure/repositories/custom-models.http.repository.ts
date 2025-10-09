@@ -42,8 +42,21 @@ export default class CustomModelsHttpRepository implements ICustomModelsHttpRepo
 
     async updateCustomModel(dto: UpdateCustomModelDTO): Promise<Result<CustomModel>> {
         try {
+            console.log('🌐 HTTP REPOSITORY: updateCustomModel вызван');
+            console.log('  dto.id:', dto.id);
+            console.log('  dto.name:', dto.name);
+            console.log('  dto.attributes:', dto.attributes);
+            console.log('  dto.states:', dto.states);
+            
             const requestDto: UpdateCustomModelApiRequest = UpdateCustomModelDTO.toRequestDto(dto);
-            const result = await this._httpClient.put<CustomModelApiResponse, UpdateCustomModelApiRequest>(`cards/admin/models/${dto.id}/`, requestDto);
+            console.log('🔧 Подготовленный requestDto:', requestDto);
+            
+            const url = `cards/admin/models/${dto.id}/`;
+            console.log('🚀 Отправляем PUT запрос на:', url);
+            
+            const result = await this._httpClient.put<CustomModelApiResponse, UpdateCustomModelApiRequest>(url, requestDto);
+            
+            console.log('📦 Результат HTTP запроса:', result);
             
             if (!result.hasData()) {
                 return Result.failure(result.errors);

@@ -40,8 +40,8 @@ const initializeModelData = (model: any) => {
             }));
             console.log('✅ Атрибуты загружены из модели:', attributes.value);
         } else {
-            // Дефолтный атрибут с примером значений
-            attributes.value = [{ name: 'Марка', value: 'BMW, Audi, Mercedes' }];
+            // Дефолтный атрибут с примером значений (английский ключ для валидации)
+            attributes.value = [{ name: 'brand', value: 'BMW, Audi, Mercedes' }];
             console.log('✅ Атрибуты установлены по умолчанию:', attributes.value);
         }
         

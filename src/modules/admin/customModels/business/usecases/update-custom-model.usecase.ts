@@ -46,9 +46,15 @@ export default class UpdateCustomModelUseCase extends BaseUseCase<UpdateCustomMo
         
         if (!validation.isValid) {
             console.log('❌ Валидация провалена! Ошибки:', validation.errors);
-            // Возвращаем первую ошибку валидации
+            
+            // Возвращаем первую ошибку валидации с правильным типом
             const firstError = validation.errors[0];
-            return Result.failure<UpdateCustomModelOutput>(new CustomModelNameEmptyError());
+            console.log('🔍 Первая ошибка валидации:', firstError);
+            
+            // Возвращаем общую ошибку валидации вместо конкретной
+            return Result.failure<UpdateCustomModelOutput>(
+                new Error(`Validation failed: ${firstError.message} (field: ${firstError.field})`)
+            );
         }
         
         console.log('✅ Валидация прошла успешно');
