@@ -31,14 +31,21 @@ const initializeModelData = (model: any) => {
                 value: Array.isArray(attr.values) ? attr.values.join(', ') : String(attr.values)
             }));
         } else {
-            attributes.value = [{ name: 'Марка', value: '' }];
+            // Дефолтный атрибут с примером значений
+            attributes.value = [{ name: 'Марка', value: 'BMW, Audi, Mercedes' }];
         }
         
-        // Инициализируем состояния (если пусто - добавляем дефолтное)
+        // Инициализируем состояния (если пусто - добавляем дефолтные 4 состояния)
         if (model.states && model.states.length > 0) {
             states.value = [...model.states];
         } else {
-            states.value = [{ type: 0, image: null, price: 0 }];
+            // Дефолтные состояния: целая, поцарапанная, ломаная, разрушенная
+            states.value = [
+                { type: 0, image: null, price: 1000 },
+                { type: 1, image: null, price: 750 },
+                { type: 2, image: null, price: 500 },
+                { type: 3, image: null, price: 250 }
+            ];
         }
         
         isPublished.value = model.isPublished;
@@ -156,11 +163,21 @@ const saveModel = async (): Promise<void> => {
 };
 
 const canSave = computed(() => {
-    return modelName.value.trim() !== '' && 
-           attributes.value.length > 0 && 
-           attributes.value.every(attr => attr.name.trim() !== '' && attr.value.trim() !== '') &&
-           states.value.length > 0 &&
-           states.value.every(state => state.price >= 0);
+    const hasName = modelName.value.trim() !== '';
+    const hasAttributes = attributes.value.length > 0;
+    const attributesFilled = attributes.value.every(attr => attr.name.trim() !== '' && attr.value.trim() !== '');
+    const hasStates = states.value.length > 0;
+    const statesValid = states.value.every(state => state.price >= 0);
+    
+    console.log('=== canSave проверка ===');
+    console.log('Название заполнено:', hasName, '(', modelName.value, ')');
+    console.log('Есть атрибуты:', hasAttributes, '(', attributes.value.length, ')');
+    console.log('Атрибуты заполнены:', attributesFilled, attributes.value);
+    console.log('Есть состояния:', hasStates, '(', states.value.length, ')');
+    console.log('Состояния валидны:', statesValid);
+    console.log('Итого canSave:', hasName && hasAttributes && attributesFilled && hasStates && statesValid);
+    
+    return hasName && hasAttributes && attributesFilled && hasStates && statesValid;
 });
 </script>
 
@@ -314,12 +331,26 @@ const canSave = computed(() => {
         </ConstructorItemLayout>
 
         <!-- Кнопка сохранения -->
-        <div class="flex justify-end pt-6 border-t border-gray-200">
-            <button
-                @click="saveModel"
-                :disabled="!canSave || controller.updating.value"
-                class="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md font-medium"
-            >
+        <div class="pt-6 border-t border-gray-200">
+            <!-- Подсказка, если кнопка заблокирована -->
+            <div v-if="!canSave" class="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p class="text-sm text-yellow-800">
+                    ⚠️ Для сохранения модели необходимо:
+                </p>
+                <ul class="text-sm text-yellow-700 mt-2 ml-4 list-disc">
+                    <li v-if="modelName.trim() === ''">Заполнить название модели</li>
+                    <li v-if="attributes.length === 0">Добавить хотя бы один атрибут</li>
+                    <li v-if="attributes.some(attr => attr.name.trim() === '' || attr.value.trim() === '')">Заполнить все поля атрибутов</li>
+                    <li v-if="states.length === 0">Добавить хотя бы одно состояние</li>
+                </ul>
+            </div>
+            
+            <div class="flex justify-end">
+                <button
+                    @click="saveModel"
+                    :disabled="!canSave || controller.updating.value"
+                    class="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md font-medium"
+                >
                 <span v-if="controller.updating.value" class="flex items-center space-x-2">
                     <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -329,6 +360,7 @@ const canSave = computed(() => {
                 </span>
                 <span v-else>Сохранить изменения</span>
             </button>
+            </div>
         </div>
     </div>
     
