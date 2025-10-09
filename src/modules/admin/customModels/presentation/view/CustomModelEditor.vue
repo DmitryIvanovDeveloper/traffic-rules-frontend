@@ -15,6 +15,7 @@ const modelName = ref<string>('');
 const attributes = ref<Array<{ name: string; value: string }>>([]);
 const states = ref<Array<{ type: number; image: string | null; price: number }>>([]);
 const isPublished = ref<boolean>(false);
+const currentModel = ref<any>(null); // Сохраняем ссылку на текущую модель
 
 // Функция для инициализации данных модели
 const initializeModelData = (model: any) => {
@@ -62,13 +63,19 @@ const initializeModelData = (model: any) => {
         isPublished.value = model.isPublished || false;
         console.log('✅ isPublished установлено:', isPublished.value);
         
+        // Сохраняем ссылку на модель
+        currentModel.value = model;
+        console.log('✅ currentModel сохранен:', currentModel.value);
+        
         console.log('🎯 Инициализация завершена. Финальные значения:');
         console.log('  modelName.value:', modelName.value);
         console.log('  attributes.value:', attributes.value);
         console.log('  states.value:', states.value);
         console.log('  isPublished.value:', isPublished.value);
+        console.log('  currentModel.value:', currentModel.value);
     } else {
         console.log('❌ Модель не передана в initializeModelData');
+        currentModel.value = null;
     }
 };
 
@@ -148,10 +155,23 @@ const getDamageTypeName = (type: number): string => {
 const saveModel = async (): Promise<void> => {
     console.log('🔵 saveModel вызвана!');
     
-    const model = presenter.customModelViewModel.value;
+    // Получаем модель из локального хранилища или presenter
+    let model = currentModel.value;
+    console.log('🔍 Ищем модель в currentModel.value:', model);
+    console.log('🔍 presenter.customModelViewModel.value:', presenter.customModelViewModel.value);
+    
     if (!model) {
-        console.error('❌ Модель не найдена в presenter');
-        return;
+        console.log('⚠️ Модель не найдена в currentModel, пытаемся получить из presenter');
+        model = presenter.customModelViewModel.value;
+        
+        if (!model) {
+            console.error('❌ Модель не найдена ни в currentModel, ни в presenter');
+            alert('Ошибка: модель не найдена. Попробуйте перезагрузить страницу.');
+            return;
+        }
+        
+        console.log('✅ Получили модель из presenter, сохраняем в currentModel');
+        currentModel.value = model;
     }
 
     console.log('=== СОХРАНЕНИЕ CUSTOM MODEL ===');
