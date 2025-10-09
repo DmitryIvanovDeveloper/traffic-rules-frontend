@@ -70,6 +70,7 @@ export default class Question {
 	}
 
 	public withUpdatedImage(image: string | null): this {
+		console.log('🖼️ Question.withUpdatedImage: updating image from', this.image, 'to', image);
 		return this.cloneWith({ image, edited: true });
 	}
 

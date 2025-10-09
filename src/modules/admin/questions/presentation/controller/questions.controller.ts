@@ -92,11 +92,17 @@ export default class QuestionsController {
     }
 
     public updateImage(newImage: string | null): void {
+        console.log('🖼️ QuestionsController: updateImage called with', newImage);
         const question = this._repository.getQuestion().value;
-        if (!question) return;
+        if (!question) {
+            console.log('❌ QuestionsController: no question found');
+            return;
+        }
 
+        console.log('📝 QuestionsController: updating question image from', question.image, 'to', newImage);
         const updated = question.withUpdatedImage(newImage);
         this._repository.updateQuestions(updated);
+        console.log('✅ QuestionsController: question updated');
     }
 
     public updateAnswerText(answerId: string, newText: string): void {

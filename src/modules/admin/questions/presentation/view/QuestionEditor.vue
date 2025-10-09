@@ -42,7 +42,7 @@ watch(() => presenter.questionViewModel.value, (newQuestion) => {
 		console.log('🖼️ QuestionEditor: setting image preview', newQuestion.image.value);
 		imagePreview.value = newQuestion.image.value;
 	} else {
-		console.log('🖼️ QuestionEditor: no image, clearing preview');
+		console.log('🖼️ QuestionEditor: no image, clearing preview. image.value:', newQuestion?.image.value);
 		imagePreview.value = null;
 	}
 }, { immediate: true, deep: true });
@@ -76,6 +76,7 @@ const handleImageUpload = (event: Event) => {
 };
 
 const removeImage = () => {
+    console.log('🗑️ QuestionEditor: removing image');
     imagePreview.value = null;
     controller.updateImage(null);
     if (imageInputRef.value) {
@@ -90,7 +91,9 @@ const openImageSelector = () => {
 // Computed property for current image
 const currentImage = computed(() => {
     const vmImage = presenter.questionViewModel.value?.image.value;
-    return imagePreview.value || (vmImage && vmImage.trim() !== '' ? vmImage : null);
+    const result = imagePreview.value || (vmImage && vmImage.trim() !== '' ? vmImage : null);
+    console.log('🖼️ currentImage computed:', { imagePreview: imagePreview.value, vmImage, result });
+    return result;
 });
 
 function onDragStart(itemId: string) {
