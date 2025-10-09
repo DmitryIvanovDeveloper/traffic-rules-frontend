@@ -11,7 +11,9 @@ export default defineConfig({
     base: '/traffic-rules-frontend/',
     cacheDir: './node_modules/vite',
     define: {
-        'import.meta.env.VITE_ENDPOINT_API': JSON.stringify(process.env.VITE_ENDPOINT_API || ''),
+        'import.meta.env.VITE_ENDPOINT_API': JSON.stringify(
+            process.env.VITE_ENDPOINT_API || 'https://hundred-cards-b2c.onrender.com'
+        ),
     },
     plugins: [
         svgLoader(), 
