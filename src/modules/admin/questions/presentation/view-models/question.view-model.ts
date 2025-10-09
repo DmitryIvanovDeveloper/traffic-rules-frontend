@@ -63,6 +63,12 @@ export default class QuestionViewModel {
 			})
 		}
 	}
+
+	public updateImage(newImage: string | null): void {
+		console.log('🔄 QuestionViewModel: updateImage called with', newImage);
+		this.image.value = newImage || "";
+		console.log('🔄 QuestionViewModel: image updated to', this.image.value);
+	}
 }
 
 export class AnswerViewModel {
