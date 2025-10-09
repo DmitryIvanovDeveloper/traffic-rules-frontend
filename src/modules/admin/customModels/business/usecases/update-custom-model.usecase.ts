@@ -31,13 +31,27 @@ export default class UpdateCustomModelUseCase extends BaseUseCase<UpdateCustomMo
     }
 
     public execute = async (input: UpdateCustomModelInput): Promise<Result<UpdateCustomModelOutput>> => {
+        console.log('🔄 USECASE: execute вызван с input:', input);
+        console.log('  input.id:', input.id);
+        console.log('  input.name:', input.name, 'length:', input.name?.length);
+        console.log('  input.attributes:', input.attributes);
+        console.log('  input.states:', input.states);
+        console.log('  input.projectId:', input.projectId);
+        console.log('  input.isPublished:', input.isPublished);
+        
         // Валидация входных данных
+        console.log('🔍 Запускаем валидацию...');
         const validation = CustomModelValidator.validateUpdateInput(input);
+        console.log('📋 Результат валидации:', validation);
+        
         if (!validation.isValid) {
+            console.log('❌ Валидация провалена! Ошибки:', validation.errors);
             // Возвращаем первую ошибку валидации
             const firstError = validation.errors[0];
             return Result.failure<UpdateCustomModelOutput>(new CustomModelNameEmptyError());
         }
+        
+        console.log('✅ Валидация прошла успешно');
 
         const dto = new UpdateCustomModelDTO(
             input.id,

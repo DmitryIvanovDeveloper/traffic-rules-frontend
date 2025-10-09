@@ -18,11 +18,18 @@ const isPublished = ref<boolean>(false);
 
 // Функция для инициализации данных модели
 const initializeModelData = (model: any) => {
+    console.log('🔄 initializeModelData вызвана с моделью:', model);
+    
     if (model) {
         console.log('=== ИНИЦИАЛИЗАЦИЯ МОДЕЛИ ===');
         console.log('Модель:', model);
+        console.log('model.name:', model.name);
+        console.log('model.attributes:', model.attributes);
+        console.log('model.states:', model.states);
         
-        modelName.value = model.name;
+        // Устанавливаем название
+        modelName.value = model.name || 'Новая модель';
+        console.log('✅ modelName.value установлено:', modelName.value);
         
         // Инициализируем атрибуты (если пусто - добавляем дефолтный)
         if (model.attributes && model.attributes.length > 0) {
@@ -30,14 +37,17 @@ const initializeModelData = (model: any) => {
                 name: attr.key,
                 value: Array.isArray(attr.values) ? attr.values.join(', ') : String(attr.values)
             }));
+            console.log('✅ Атрибуты загружены из модели:', attributes.value);
         } else {
             // Дефолтный атрибут с примером значений
             attributes.value = [{ name: 'Марка', value: 'BMW, Audi, Mercedes' }];
+            console.log('✅ Атрибуты установлены по умолчанию:', attributes.value);
         }
         
         // Инициализируем состояния (если пусто - добавляем дефолтные 4 состояния)
         if (model.states && model.states.length > 0) {
             states.value = [...model.states];
+            console.log('✅ Состояния загружены из модели:', states.value);
         } else {
             // Дефолтные состояния: целая, поцарапанная, ломаная, разрушенная
             states.value = [
@@ -46,9 +56,19 @@ const initializeModelData = (model: any) => {
                 { type: 2, image: null, price: 500 },
                 { type: 3, image: null, price: 250 }
             ];
+            console.log('✅ Состояния установлены по умолчанию:', states.value);
         }
         
-        isPublished.value = model.isPublished;
+        isPublished.value = model.isPublished || false;
+        console.log('✅ isPublished установлено:', isPublished.value);
+        
+        console.log('🎯 Инициализация завершена. Финальные значения:');
+        console.log('  modelName.value:', modelName.value);
+        console.log('  attributes.value:', attributes.value);
+        console.log('  states.value:', states.value);
+        console.log('  isPublished.value:', isPublished.value);
+    } else {
+        console.log('❌ Модель не передана в initializeModelData');
     }
 };
 
@@ -126,39 +146,60 @@ const getDamageTypeName = (type: number): string => {
 };
 
 const saveModel = async (): Promise<void> => {
+    console.log('🔵 saveModel вызвана!');
+    
     const model = presenter.customModelViewModel.value;
     if (!model) {
-        console.error('Модель не найдена');
+        console.error('❌ Модель не найдена в presenter');
         return;
     }
 
     console.log('=== СОХРАНЕНИЕ CUSTOM MODEL ===');
     console.log('ID модели:', model.id);
-    console.log('Название:', modelName.value);
-    console.log('Атрибуты:', attributes.value);
-    console.log('Состояния:', states.value);
+    console.log('Название из ref:', modelName.value);
+    console.log('Название из model:', model.name);
+    console.log('Название trim():', modelName.value?.trim());
+    console.log('Название length:', modelName.value?.length);
+    console.log('Атрибуты (raw):', attributes.value);
+    console.log('Состояния (raw):', states.value);
     console.log('Опубликовано:', isPublished.value);
+    console.log('Project ID:', model.projectId);
+    
+    // Проверяем, что название не пустое
+    if (!modelName.value || modelName.value.trim() === '') {
+        console.error('❌ Название модели пустое! modelName.value:', modelName.value);
+        alert('Пожалуйста, введите название модели');
+        return;
+    }
+
+    // Подготовка атрибутов
+    const preparedAttributes = attributes.value.map(attr => ({
+        key: attr.name,
+        values: attr.value.split(',').map((v: string) => v.trim())
+    }));
+    console.log('🔧 Подготовленные атрибуты:', preparedAttributes);
+    console.log('🔧 Состояния для отправки:', states.value);
 
     try {
+        console.log('🚀 Вызываем controller.updateCustomModelWithData...');
         const result = await controller.updateCustomModelWithData(
             model.id,
             modelName.value,
-            attributes.value.map(attr => ({
-                key: attr.name,
-                values: attr.value.split(',').map((v: string) => v.trim())
-            })),
+            preparedAttributes,
             states.value,
             model.projectId,
             isPublished.value
         );
 
+        console.log('📦 Результат от контроллера:', result);
+
         if (result.isSuccess) {
-            console.log('Модель успешно обновлена');
+            console.log('✅ Модель успешно обновлена');
         } else {
-            console.error('Ошибка при обновлении модели:', result.errors);
+            console.error('❌ Ошибка при обновлении модели:', result.errors);
         }
     } catch (error) {
-        console.error('Ошибка при сохранении:', error);
+        console.error('💥 Exception при сохранении:', error);
     }
 };
 

@@ -89,17 +89,38 @@ export default class CustomModelsController {
         try {
             this.updating.value = true;
             
+            console.log('🎮 CONTROLLER: updateCustomModelWithData вызван');
+            console.log('  id:', id);
+            console.log('  name:', name);
+            console.log('  attributes:', attributes);
+            console.log('  states:', states);
+            console.log('  projectId:', projectId);
+            console.log('  isPublished:', isPublished);
+            
             const modelAttributes = attributes.map(attr => new CustomModelAttribute(attr.key, attr.values));
             const modelStates = states.map(state => new CustomModelState(state.type, state.image, state.price));
             
-            return await this._updateCustomModelUseCase.execute({
+            console.log('🔄 Преобразованные атрибуты:', modelAttributes);
+            console.log('🔄 Преобразованные состояния:', modelStates);
+            
+            const input = {
                 id,
                 name,
                 attributes: modelAttributes,
                 states: modelStates,
                 projectId,
                 isPublished
-            });
+            };
+            
+            console.log('📨 Отправляем в UseCase:', input);
+            
+            const result = await this._updateCustomModelUseCase.execute(input);
+            
+            console.log('📬 Результат от UseCase:', result);
+            console.log('  isSuccess:', result.isSuccess);
+            console.log('  errors:', result.errors);
+            
+            return result;
         }
         finally {
             this.updating.value = false;
