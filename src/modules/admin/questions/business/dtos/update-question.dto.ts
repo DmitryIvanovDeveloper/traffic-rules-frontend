@@ -8,6 +8,7 @@ export class UpdateQuestionRequestDTO {
    readonly order: number;
    readonly levelId: string;
    readonly lang: string;
+   readonly image: string | null;
    readonly answers: Array<UpdateAnswerRequestDTO>;
 } 
 
@@ -26,6 +27,7 @@ export class UpdateQuestionResponseDTO {
    readonly order: number;
    readonly levelId: string;
    readonly lang: string;
+   readonly image: string | null;
    readonly answers: Array<UpdateAnswerResponseDTO>;
 
    constructor(response: PutQuestionResponse) {
@@ -35,6 +37,7 @@ export class UpdateQuestionResponseDTO {
       this.levelId = response.level_id;
       this.order = response.order;
       this.lang = response.lang_iso;
+      this.image = response.image || null;
       this.answers = response.answers.map(answer => new UpdateAnswerResponseDTO(answer));
    }
 } 

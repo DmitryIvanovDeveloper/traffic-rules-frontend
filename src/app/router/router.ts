@@ -117,10 +117,6 @@ const getRoutes = (): Array<RouteRecordRaw> => {
                 path: RouterPaths.customModels,
                 component: CustomModels,
             },
-            {
-                path: RouterPaths.damageTypes,
-                component: DamageTypes,
-            },
         ],
         },
     ];

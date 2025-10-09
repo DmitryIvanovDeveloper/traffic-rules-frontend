@@ -5,7 +5,7 @@ import PostQuestionResponse from "./post-questions.request";
 
 
 export function mapQuestionsResponseToDto(rawData: GetQuestionsResponse): LoadQuestionResponse {
-    const { id, text, points, level_id, answers, lang_iso } = rawData;
+    const { id, text, points, level_id, answers, lang_iso, image } = rawData;
 
     const mappedAnswers = answers.map(answer => new LoadAnswerResponse(
         answer.id,
@@ -21,6 +21,7 @@ export function mapQuestionsResponseToDto(rawData: GetQuestionsResponse): LoadQu
         points,
         level_id,
         lang_iso,
+        image || null,
         mappedAnswers
     );
 
@@ -28,7 +29,7 @@ export function mapQuestionsResponseToDto(rawData: GetQuestionsResponse): LoadQu
 }
 
 export function mapPostQuestionsResponseToDto(rawData: PostQuestionResponse): CreateQuestionResponse {
-    const { id, text, points, level_id, answers, lang_iso } = rawData;
+    const { id, text, points, level_id, answers, lang_iso, image } = rawData;
 
     const mappedAnswers = answers.map(answer => new LoadAnswerResponse(
         answer.id,
@@ -38,12 +39,13 @@ export function mapPostQuestionsResponseToDto(rawData: PostQuestionResponse): Cr
         answer.question_id,
     ))
 
-    const mappedQuestion = new LoadQuestionResponse(
+    const mappedQuestion = new CreateQuestionResponse(
         id,
         text,
         points,
         level_id,
         lang_iso,
+        image || null,
         mappedAnswers
     );
 

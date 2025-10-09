@@ -4,6 +4,7 @@ export class CreateQuestionRequest {
    points: number;
    levelId: string;
    lang: string;
+   image: string | null;
    answers: Array<CreateAnswerRequest>;
 } 
 
@@ -21,6 +22,7 @@ export class CreateQuestionResponse {
    points: number;
    levelId: string;
    lang: string;
+   image: string | null;
    answers: CreateAnswerResponse[];
 
    constructor(
@@ -29,6 +31,7 @@ export class CreateQuestionResponse {
       points: number,
       levelId: string,
       lang: string,
+      image: string | null,
       answers: CreateAnswerResponse[]
    ) {
       this.id = id;
@@ -36,6 +39,7 @@ export class CreateQuestionResponse {
       this.points = points;
       this.levelId = levelId;
       this.lang = lang;
+      this.image = image;
       this.answers = answers;
    }
 

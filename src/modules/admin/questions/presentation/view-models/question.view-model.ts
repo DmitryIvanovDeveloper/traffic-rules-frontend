@@ -15,6 +15,7 @@ export default class QuestionViewModel {
 	public readonly answers: Array<AnswerViewModel>;
 	public readonly name: ViewModelField = new ViewModelField();
 	public readonly points: ViewModelField = new ViewModelField();
+	public readonly image: ViewModelField = new ViewModelField();
 	public readonly order: number
 	public readonly published: boolean;
 	public hasError: boolean
@@ -23,6 +24,7 @@ export default class QuestionViewModel {
 		this.id = question.id;
 		this.name.value = question.text;
 		this.points.value = question.points;
+		this.image.value = question.image;
 		this.levelId = question.levelId;
 		this.answers = question.answers.map(answer => new AnswerViewModel(answer, question.showErrors)).sort((a, b) => a.order - b.order);
 		this.edited = question.edited ?? false;

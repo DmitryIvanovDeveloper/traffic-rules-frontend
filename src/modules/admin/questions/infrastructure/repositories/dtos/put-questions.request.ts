@@ -8,6 +8,7 @@ export class PutQuestionRequest {
   readonly order: number;
   readonly level_id: string;
   readonly is_published: boolean;
+  readonly image: string | null;
   readonly answers: Array<PostAnswerRequest>;
 
   constructor(createQuestionRequest: UpdateQuestionRequestDTO) {
@@ -17,6 +18,7 @@ export class PutQuestionRequest {
     this.level_id = createQuestionRequest.levelId;
     this.order = createQuestionRequest.order;
     this.is_published = createQuestionRequest.published;
+    this.image = createQuestionRequest.image;
 
     this.answers = createQuestionRequest.answers.map(
       (answer) => new PutAnswerRequest(answer)
@@ -47,6 +49,7 @@ export interface PutQuestionResponse {
     readonly points: number;
     readonly order: number;
     readonly level_id:  string;
+    readonly image?: string | null;
     readonly answers: Array<PutAnswerResponse>
 }
 

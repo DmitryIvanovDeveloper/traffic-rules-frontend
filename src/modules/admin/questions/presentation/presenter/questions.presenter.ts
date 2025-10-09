@@ -16,7 +16,8 @@ export default class QuestionsPresenter {
         question: 'Вопрос',
         answers: 'Ответы',
         addAnswer: 'Добавить',
-        points: 'Очки за правильный ответ'
+        points: 'Очки за правильный ответ',
+        image: 'Изображение'
     }
 
     public questionsViewModel = computed(() => {

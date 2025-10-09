@@ -5,6 +5,7 @@ export class PostQuestionRequest {
   readonly text: string;
   readonly points: number;
   readonly level_id: string;
+  readonly image: string | null;
   readonly answers: Array<PostAnswerRequest>;
 
   constructor(createQuestionRequest: CreateQuestionRequest) {
@@ -12,6 +13,7 @@ export class PostQuestionRequest {
     this.text = createQuestionRequest.text;
     this.points = createQuestionRequest.points;
     this.level_id = createQuestionRequest.levelId;
+    this.image = createQuestionRequest.image;
     this.answers = createQuestionRequest.answers.map(
       (answer) => new PostAnswerRequest(answer)
     );
@@ -44,6 +46,7 @@ export default interface PostQuestionResponse {
     points: number;
     level_id: string;
     lang_iso: string;
+    image?: string | null;
     answers: PostAnswerResponse[];
 }
   

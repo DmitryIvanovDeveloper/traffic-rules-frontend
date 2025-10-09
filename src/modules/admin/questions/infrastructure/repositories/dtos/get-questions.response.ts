@@ -12,6 +12,7 @@ export default interface GetQuestionsResponse {
     points: number;
     level_id: string;
     lang_iso: string;
+    image?: string | null;
     answers: GetAnswerResponse[];
 }
   

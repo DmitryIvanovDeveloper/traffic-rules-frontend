@@ -14,6 +14,7 @@ export class LoadQuestionResponse {
    points: number;
    levelId: string;
    lang: string;
+   image: string | null;
    answers: LoadAnswerResponse[];
 
    constructor(
@@ -22,6 +23,7 @@ export class LoadQuestionResponse {
       points: number,
       levelId: string,
       lang: string,
+      image: string | null,
       answers: LoadAnswerResponse[]
    ) {
       this.id = id;
@@ -29,6 +31,7 @@ export class LoadQuestionResponse {
       this.points = points;
       this.levelId = levelId;
       this.lang = lang;
+      this.image = image;
       this.answers = answers;
    }
 

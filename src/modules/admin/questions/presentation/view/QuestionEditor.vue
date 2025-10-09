@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { container } from "@/infrastructure/bootstrap/inversify.config";
 import { TYPES } from "../../types";
 import QuestionsController from "../controller/questions.controller";
@@ -24,12 +24,65 @@ onMounted(() => {
 	}
 });
 
+// Initialize image preview when question changes
+watch(() => presenter.questionViewModel.value, (newQuestion) => {
+	if (newQuestion?.image.value) {
+		imagePreview.value = newQuestion.image.value;
+	} else {
+		imagePreview.value = null;
+	}
+}, { immediate: true });
+
 const selectQuestion = (id: string): void => {
 	controller.selectQuestion(id);
 };
 
 const draggedItemId = ref<string | null>(null);
 const dragOverItemId = ref<string | null>(null);
+
+// Image upload functionality
+const imageInputRef = ref<HTMLInputElement | null>(null);
+const imagePreview = ref<string | null>(null);
+
+const handleImageUpload = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0];
+    
+    if (file) {
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+            alert('Пожалуйста, выберите файл изображения');
+            return;
+        }
+        
+        // Validate file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Размер файла не должен превышать 5MB');
+            return;
+        }
+        
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const result = e.target?.result as string;
+            imagePreview.value = result;
+            controller.updateImage(result);
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+const removeImage = () => {
+    imagePreview.value = null;
+    controller.updateImage(null);
+    if (imageInputRef.value) {
+        imageInputRef.value.value = '';
+    }
+};
+
+const openImageSelector = () => {
+    imageInputRef.value?.click();
+};
 
 function onDragStart(itemId: string) {
     draggedItemId.value = itemId;
@@ -71,6 +124,46 @@ function onDrop(targetItemId: string) {
 				:onChange="(value) => controller.updatePoints(Number(value))"
 				:error="presenter.questionViewModel.value.points.error"
 			/>
+		</ConstructorItemLayout>
+
+		<ConstructorItemLayout :label="presenter.labels.image">
+			<div class="space-y-4">
+				<!-- Hidden file input -->
+				<input
+					ref="imageInputRef"
+					type="file"
+					accept="image/*"
+					@change="handleImageUpload"
+					class="hidden"
+				/>
+				
+				<!-- Image preview or upload button -->
+				<div v-if="imagePreview || presenter.questionViewModel.value.image.value" class="relative">
+					<img
+						:src="imagePreview || presenter.questionViewModel.value.image.value"
+						alt="Question image preview"
+						class="w-full max-w-md h-48 object-cover rounded-lg border border-gray-300"
+					/>
+					<button
+						@click="removeImage"
+						class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600"
+					>
+						✕
+					</button>
+				</div>
+				
+				<!-- Upload button -->
+				<button
+					v-else
+					@click="openImageSelector"
+					class="w-full max-w-md h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-gray-500 hover:border-gray-400 hover:text-gray-600 transition-colors"
+				>
+					<svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+					</svg>
+					<span class="text-sm">Нажмите для загрузки изображения</span>
+				</button>
+			</div>
 		</ConstructorItemLayout>
 
 		<div>

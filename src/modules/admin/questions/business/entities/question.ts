@@ -69,6 +69,10 @@ export default class Question {
 		return this.cloneWith({ points, edited: true });
 	}
 
+	public withUpdatedImage(image: string | null): this {
+		return this.cloneWith({ image, edited: true });
+	}
+
 	public withUpdatedAnswerText(answerId: string, newText: string): this {
         const answer = this.answers.find(a => a.id === answerId);
         if (!answer) {
@@ -176,6 +180,7 @@ export default class Question {
 			points: props.points ?? this.points,
 			levelId: this.levelId,
 			lang: this.lang,
+			image: props.image ?? this.image,
 			answers: props.answers ?? this.answers,
 			edited: props.edited ?? this.edited,
 			deleting: props.deleting ?? this.deleting,
@@ -230,6 +235,7 @@ export default class Question {
 			points: this.points,
 			levelId: this.levelId,
 			lang: this.lang,
+			image: this.image,
 			answers: this.answers.map((a) => ({ ...a })),
 		};
 	}
@@ -242,6 +248,7 @@ export default class Question {
 			order: this.order,
 			levelId: this.levelId,
 			lang: this.lang,
+			image: this.image,
 			published: this.published,
 			answers: this.answers.map((a) => ({ ...a })),
 		};

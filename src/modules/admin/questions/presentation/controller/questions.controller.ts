@@ -91,6 +91,14 @@ export default class QuestionsController {
         this._repository.updateQuestions(updated);
     }
 
+    public updateImage(newImage: string | null): void {
+        const question = this._repository.getQuestion().value;
+        if (!question) return;
+
+        const updated = question.withUpdatedImage(newImage);
+        this._repository.updateQuestions(updated);
+    }
+
     public updateAnswerText(answerId: string, newText: string): void {
         const question = this._repository.getQuestion().value;
         if (!question) return;
