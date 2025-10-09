@@ -82,6 +82,12 @@ const removeImage = () => {
     if (imageInputRef.value) {
         imageInputRef.value.value = '';
     }
+    
+    // Force update after a short delay
+    setTimeout(() => {
+        console.log('🔄 QuestionEditor: forcing imagePreview update after timeout');
+        imagePreview.value = null;
+    }, 100);
 };
 
 const openImageSelector = () => {

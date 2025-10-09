@@ -10,7 +10,7 @@ import { CreateQuestionsOutput } from "../../business/usecases/types/create-ques
 import IQuestionsLocalRepository from "../../business/plugins/questions.local.repository.plugin";
 import NextQuestionUseCase from "../../business/usecases/next-question.usecase";
 import PreviousQuestionUseCase from "../../business/usecases/previous-question.usecase";
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 import DeleteQuestionUseCase from "../../business/usecases/delete-queston.usecase";
 import ReorderQuestionsUseCase from "../../business/usecases/reorder-questions-order.usecase";
 
@@ -102,6 +102,14 @@ export default class QuestionsController {
         console.log('📝 QuestionsController: updating question image from', question.image, 'to', newImage);
         const updated = question.withUpdatedImage(newImage);
         this._repository.updateQuestions(updated);
+        
+        // Force reactivity update
+        nextTick(() => {
+            console.log('🔄 QuestionsController: forcing reactivity update');
+            const currentQuestion = this._repository.getQuestion().value;
+            console.log('🔄 QuestionsController: current question after update:', currentQuestion?.image);
+        });
+        
         console.log('✅ QuestionsController: question updated');
     }
 
