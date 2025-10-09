@@ -181,7 +181,7 @@ export default class Question {
 			points: props.points ?? this.points,
 			levelId: this.levelId,
 			lang: this.lang,
-			image: props.image ?? this.image,
+			image: props.hasOwnProperty('image') ? props.image : this.image,
 			answers: props.answers ?? this.answers,
 			edited: props.edited ?? this.edited,
 			deleting: props.deleting ?? this.deleting,

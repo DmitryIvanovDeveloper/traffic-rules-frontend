@@ -134,24 +134,6 @@ function onDrop(targetItemId: string) {
 <template>
 
 	<div v-if="presenter.questionViewModel.value" class="flex flex-col gap-[50px]">
-		<ConstructorItemLayout :label="presenter.labels.question">
-			<UniversalTextArea 
-				:onChange="(value) => controller.updateText(value)"
-				placeholder="Question text" 
-				:modelValue="(presenter.questionViewModel.value.name.value as string)" 
-				:error="presenter.questionViewModel.value.name.error"
-			/>
-		</ConstructorItemLayout>
-
-		<ConstructorItemLayout :label="presenter.labels.points" >
-			<UniversalInput
-				type="number"
-				:value="presenter.questionViewModel.value.points.value"
-				:onChange="(value) => controller.updatePoints(Number(value))"
-				:error="presenter.questionViewModel.value.points.error"
-			/>
-		</ConstructorItemLayout>
-
 		<ConstructorItemLayout :label="presenter.labels.image">
 			<div class="space-y-4">
 				<!-- Hidden file input -->
@@ -191,6 +173,24 @@ function onDrop(targetItemId: string) {
 					<span class="text-sm">Нажмите для загрузки изображения</span>
 				</button>
 			</div>
+		</ConstructorItemLayout>
+
+		<ConstructorItemLayout :label="presenter.labels.question">
+			<UniversalTextArea 
+				:onChange="(value) => controller.updateText(value)"
+				placeholder="Question text" 
+				:modelValue="(presenter.questionViewModel.value.name.value as string)" 
+				:error="presenter.questionViewModel.value.name.error"
+			/>
+		</ConstructorItemLayout>
+
+		<ConstructorItemLayout :label="presenter.labels.points" >
+			<UniversalInput
+				type="number"
+				:value="presenter.questionViewModel.value.points.value"
+				:onChange="(value) => controller.updatePoints(Number(value))"
+				:error="presenter.questionViewModel.value.points.error"
+			/>
 		</ConstructorItemLayout>
 
 		<div>
