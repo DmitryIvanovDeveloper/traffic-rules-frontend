@@ -34,17 +34,20 @@ const dragOverItemId = ref<string | null>(null);
 // Image upload functionality
 const imageInputRef = ref<HTMLInputElement | null>(null);
 const imagePreview = ref<string | null>(null);
+const forceUpdate = ref<number>(0);
 
 // Initialize image preview when question changes
 watch(() => presenter.questionViewModel.value, (newQuestion) => {
 	console.log('🔍 QuestionEditor: question changed', newQuestion);
-	if (newQuestion?.image.value && newQuestion.image.value.trim() !== '') {
-		console.log('🖼️ QuestionEditor: setting image preview', newQuestion.image.value);
-		imagePreview.value = newQuestion.image.value;
+	const imageValue = newQuestion?.image.value;
+	if (imageValue && typeof imageValue === 'string' && imageValue.trim() !== '') {
+		console.log('🖼️ QuestionEditor: setting image preview', imageValue);
+		imagePreview.value = imageValue;
 	} else {
-		console.log('🖼️ QuestionEditor: no image, clearing preview. image.value:', newQuestion?.image.value);
+		console.log('🖼️ QuestionEditor: no image, clearing preview. image.value:', imageValue);
 		imagePreview.value = null;
 	}
+	forceUpdate.value++;
 }, { immediate: true, deep: true });
 
 const handleImageUpload = (event: Event) => {
@@ -78,6 +81,7 @@ const handleImageUpload = (event: Event) => {
 const removeImage = () => {
     console.log('🗑️ QuestionEditor: removing image');
     imagePreview.value = null;
+    forceUpdate.value++;
     controller.updateImage(null);
     if (imageInputRef.value) {
         imageInputRef.value.value = '';
@@ -87,6 +91,7 @@ const removeImage = () => {
     setTimeout(() => {
         console.log('🔄 QuestionEditor: forcing imagePreview update after timeout');
         imagePreview.value = null;
+        forceUpdate.value++;
     }, 100);
 };
 
@@ -96,9 +101,12 @@ const openImageSelector = () => {
 
 // Computed property for current image
 const currentImage = computed(() => {
+    // Force recomputation
+    forceUpdate.value;
+    
     const vmImage = presenter.questionViewModel.value?.image.value;
-    const result = imagePreview.value || (vmImage && vmImage.trim() !== '' ? vmImage : null);
-    console.log('🖼️ currentImage computed:', { imagePreview: imagePreview.value, vmImage, result });
+    const result = imagePreview.value || (vmImage && typeof vmImage === 'string' && vmImage.trim() !== '' ? vmImage : null);
+    console.log('🖼️ currentImage computed:', { imagePreview: imagePreview.value, vmImage, result, forceUpdate: forceUpdate.value });
     return result;
 });
 
@@ -158,6 +166,7 @@ function onDrop(targetItemId: string) {
 				<!-- Image preview or upload button -->
 				<div v-if="currentImage" class="relative">
 					<img
+						:key="forceUpdate + '_' + currentImage"
 						:src="currentImage"
 						alt="Question image preview"
 						class="w-full max-w-md h-48 object-cover rounded-lg border border-gray-300"
