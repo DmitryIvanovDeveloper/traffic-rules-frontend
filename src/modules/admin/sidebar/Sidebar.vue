@@ -9,14 +9,12 @@ const router = useRouter();
 
 
 // Store the selected route or section
-const selected = ref<'projects' | 'account' | 'analytics' | 'settings' | 'help' | 'members' | 'customModels' | 'modelVariants' | 'damageTypes'>('projects');
+const selected = ref<'projects' | 'account' | 'analytics' | 'settings' | 'help' | 'members' | 'damageTypes'>('projects');
 
-const buttons: { title: string; icon: any; type: 'projects' | 'account' | 'analytics' | 'settings' | 'help' | 'members' | 'customModels' | 'modelVariants' | 'damageTypes'}[] = [
+const buttons: { title: string; icon: any; type: 'projects' | 'account' | 'analytics' | 'settings' | 'help' | 'members' | 'damageTypes'}[] = [
 	{ title: 'Мой аккаунт', icon: UserIcon, type: 'account' },
 	{ title: 'Проекты', icon: FolderIcon, type: 'projects' },
 	{ title: 'Участники', icon: FolderIcon, type: 'members' },
-	{ title: 'Модели', icon: FolderIcon, type: 'customModels' },
-	{ title: 'Варианты', icon: FolderIcon, type: 'modelVariants' },
 	{ title: 'Повреждения', icon: FolderIcon, type: 'damageTypes' },
 	{ title: 'Аналитика', icon: ChartBarIcon, type: 'analytics' },
 	{ title: 'Настройки', icon: CogIcon, type: 'settings' },
@@ -24,7 +22,7 @@ const buttons: { title: string; icon: any; type: 'projects' | 'account' | 'analy
 ];
 
 
-const handlePress = (type: 'projects' | 'account' | 'analytics' | 'settings' | 'help' | 'members' | 'customModels' | 'modelVariants' | 'damageTypes') => {
+const handlePress = (type: 'projects' | 'account' | 'analytics' | 'settings' | 'help' | 'members' | 'damageTypes') => {
 	selected.value = type; // Update selected route
 	if (type === 'projects') {
 		const newPath = `${RouterPaths.admin}/${RouterPaths.projects}/${RouterPaths.list}`;
@@ -37,16 +35,6 @@ const handlePress = (type: 'projects' | 'account' | 'analytics' | 'settings' | '
 	
 	if (type === 'members') {
 		router.push(RouterPaths.members);
-	}
-	
-	if (type === 'customModels') {
-		const newPath = `${RouterPaths.admin}/${RouterPaths.customModels}`;
-		router.push(newPath);
-	}
-	
-	if (type === 'modelVariants') {
-		const newPath = `${RouterPaths.admin}/${RouterPaths.modelVariants}`;
-		router.push(newPath);
 	}
 	
 	if (type === 'damageTypes') {

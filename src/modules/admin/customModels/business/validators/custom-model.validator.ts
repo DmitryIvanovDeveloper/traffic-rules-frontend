@@ -168,9 +168,22 @@ export class CustomModelValidator {
       });
     }
 
-    // Атрибуты НЕ обязательны для update (управляются через ModelVariants)
-    // Но если они есть - валидируем их
-    if (input.attributes && input.attributes.length > 0) {
+    // Валидация атрибутов
+    if (!input.attributes || input.attributes.length === 0) {
+      errors.push({
+        field: 'attributes',
+        message: 'Атрибуты обязательны',
+        code: 'REQUIRED'
+      });
+    } else {
+      if (input.attributes.length < this.validationRules.attributes.minCount) {
+        errors.push({
+          field: 'attributes',
+          message: `Должен быть минимум ${this.validationRules.attributes.minCount} атрибут`,
+          code: 'MIN_COUNT'
+        });
+      }
+      
       if (input.attributes.length > this.validationRules.attributes.maxCount) {
         errors.push({
           field: 'attributes',

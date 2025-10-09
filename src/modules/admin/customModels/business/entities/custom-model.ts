@@ -28,9 +28,9 @@ export default class CustomModel {
                 )
             ) : [];
 
-        // States больше не приходят из API - они хранятся в ModelVariants
-        // Инициализируем пустым массивом для обратной совместимости с UI
-        const states: CustomModelState[] = [];
+        // Преобразуем массив состояний в массив CustomModelState
+        const states = data.states ? 
+            data.states.map((state) => new CustomModelState(state.type, state.image, state.price)) : [];
 
         return new CustomModel(
             data.id,
@@ -45,23 +45,20 @@ export default class CustomModel {
     }
 
     public static toRequestDto(model: CustomModel): CustomModelApiRequest {
-        // States НЕ отправляются в API - они управляются через ModelVariants
-        // Attributes тоже управляются через ModelVariants (пустой массив для CustomModel)
-        let attributes: any[] = [];
-        
-        if (model.attributes && model.attributes.length > 0) {
-            // Группируем атрибуты в объект как ожидает API
-            const attributesGrouped = model.attributes.reduce((acc, attr) => {
-                acc[attr.key] = attr.values;
-                return acc;
-            }, {} as Record<string, (string | number)[]>);
-            attributes = [attributesGrouped]; // API ожидает массив объектов
-        }
+        // Группируем атрибуты в объект как ожидает API
+        const attributesGrouped = model.attributes.reduce((acc, attr) => {
+            acc[attr.key] = attr.values;
+            return acc;
+        }, {} as Record<string, (string | number)[]>);
+
+        // Преобразуем состояния в формат API
+        const statesData = model.states.map(state => CustomModelState.toRequestDto(state));
 
         return {
             id: model.id,
             name: model.name,
-            attributes: attributes,
+            attributes: [attributesGrouped], // API ожидает массив объектов
+            states: statesData,
             project_id: model.projectId,
             is_published: model.isPublished
         };
@@ -150,7 +147,7 @@ export default class CustomModel {
         return {
             name: 'Новая модель',
             attributes: [],
-            // states НЕ отправляются - управляются через ModelVariants
+            states: [],
             project_id: projectId,
             is_published: false
         };

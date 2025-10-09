@@ -4,7 +4,6 @@ import LevelListBar from "@/modules/admin/levels/presentation/view/LevelListBar.
 import QuestionListBar from "@/modules/admin/questions/presentation/view/QuestionListBar.vue";
 import AchievementsListBar from "@/modules/admin/achievements/presentation/view/AchievementsListBar.vue";
 import CustomModelsListBar from "@/modules/admin/customModels/presentation/view/CustomModelsListBar.vue";
-import ModelVariantsListBar from "@/modules/admin/modelVariants/presentation/view/ModelVariantsListBar.vue";
 
 </script>
 
@@ -26,7 +25,6 @@ import ModelVariantsListBar from "@/modules/admin/modelVariants/presentation/vie
             <QuestionListBar />
             <AchievementsListBar />
             <CustomModelsListBar />
-            <ModelVariantsListBar />
         </div>
         <div class="mt-auto p-4 border-t border-gray-200">
             <div class="flex items-center text-gray-500 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16"

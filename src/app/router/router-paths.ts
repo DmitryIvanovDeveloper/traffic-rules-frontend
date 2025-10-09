@@ -9,7 +9,6 @@ export const RouterPaths = {
   constructor: 'constructor',
   levels: 'levels',
   customModels: 'custom-models',
-  modelVariants: 'model-variants',
   damageTypes: 'damage-types',
   game: '/game',
   achievements: '/admin/achievements/constructor',

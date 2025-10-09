@@ -21,7 +21,6 @@ import Profile from '@/modules/admin/profile/presentation/view/Profile.vue';
 import Members  from '@/modules/admin/members/presentation/view/Members.vue';
 import Member from '@/modules/admin/members/presentation/view/Member.vue';
 import CustomModels from '@/modules/admin/customModels/presentation/view/CustomModels.vue';
-import ModelVariants from '@/modules/admin/modelVariants/presentation/view/ModelVariants.vue';
 import DamageTypes from '@/modules/admin/damageTypes/presentation/view/DamageTypes.vue';
 
 const getRoutes = (): Array<RouteRecordRaw> => {
@@ -117,10 +116,6 @@ const getRoutes = (): Array<RouteRecordRaw> => {
             {
                 path: RouterPaths.customModels,
                 component: CustomModels,
-            },
-            {
-                path: RouterPaths.modelVariants,
-                component: ModelVariants,
             },
             {
                 path: RouterPaths.damageTypes,

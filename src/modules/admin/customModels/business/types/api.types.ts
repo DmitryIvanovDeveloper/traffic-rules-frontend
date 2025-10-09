@@ -15,7 +15,7 @@ export interface CustomModelApiRequest {
   id?: string;
   name: string;
   attributes: CustomModelAttributeApiData[];
-  // states НЕТ в API - они хранятся в ModelVariants
+  states: CustomModelStateApiData[];
   project_id: string;
   is_published: boolean;
 }
@@ -24,7 +24,7 @@ export interface CustomModelApiResponse {
   id: string;
   name: string;
   attributes: CustomModelAttributeApiData[];
-  // states НЕТ в API - они хранятся в ModelVariants
+  states: CustomModelStateApiData[];
   project_id: string;
   is_published: boolean;
   created_at?: string;
@@ -34,7 +34,7 @@ export interface CustomModelApiResponse {
 export interface CreateCustomModelApiRequest {
   name: string;
   attributes: CustomModelAttributeApiData[];
-  // states НЕТ в API - они хранятся в ModelVariants
+  states: CustomModelStateApiData[];
   project_id: string;
   is_published?: boolean;
 }
@@ -43,7 +43,7 @@ export interface UpdateCustomModelApiRequest {
   id: string;
   name: string;
   attributes: CustomModelAttributeApiData[];
-  // states НЕТ в API - они хранятся в ModelVariants
+  states: CustomModelStateApiData[];
   project_id: string;
   is_published: boolean;
 }
