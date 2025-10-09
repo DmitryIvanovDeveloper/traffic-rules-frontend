@@ -32,7 +32,7 @@ const initializeModelData = (model: any) => {
         modelName.value = model.name || 'Новая модель';
         console.log('✅ modelName.value установлено:', modelName.value);
         
-        // Инициализируем атрибуты (если пусто - добавляем дефолтный)
+        // Инициализируем атрибуты
         if (model.attributes && model.attributes.length > 0) {
             attributes.value = model.attributes.map((attr: any) => ({
                 name: attr.key,
@@ -40,24 +40,17 @@ const initializeModelData = (model: any) => {
             }));
             console.log('✅ Атрибуты загружены из модели:', attributes.value);
         } else {
-            // Дефолтный атрибут с примером значений (английский ключ для валидации)
-            attributes.value = [{ name: 'brand', value: 'BMW, Audi, Mercedes' }];
-            console.log('✅ Атрибуты установлены по умолчанию:', attributes.value);
+            attributes.value = [];
+            console.log('✅ Атрибуты пусты (нужно добавить вручную)');
         }
         
-        // Инициализируем состояния (если пусто - добавляем дефолтные 4 состояния)
+        // Инициализируем состояния
         if (model.states && model.states.length > 0) {
             states.value = [...model.states];
             console.log('✅ Состояния загружены из модели:', states.value);
         } else {
-            // Дефолтные состояния: целая, поцарапанная, ломаная, разрушенная
-            states.value = [
-                { type: 0, image: null, price: 1000 },
-                { type: 1, image: null, price: 750 },
-                { type: 2, image: null, price: 500 },
-                { type: 3, image: null, price: 250 }
-            ];
-            console.log('✅ Состояния установлены по умолчанию:', states.value);
+            states.value = [];
+            console.log('✅ Состояния пусты (нужно добавить вручную)');
         }
         
         isPublished.value = model.isPublished || false;
