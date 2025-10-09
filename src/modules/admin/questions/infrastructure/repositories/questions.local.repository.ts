@@ -15,11 +15,14 @@ export default class QuestionsLocalRepository implements IQuestionsLocalReposito
     }
 
     public updateQuestions(updatedQuestion: Question): void {
+        console.log('💾 QuestionsLocalRepository: updateQuestions called with', updatedQuestion.id, 'image:', updatedQuestion.image);
         if (!this._questions.value) {
+            console.log('❌ QuestionsLocalRepository: no questions array');
             return;
         }
         const index = this._questions.value.findIndex((question) => question.id === updatedQuestion.id);
         if (index === -1) {
+            console.log('❌ QuestionsLocalRepository: question not found');
             return;
         }
 
@@ -27,6 +30,7 @@ export default class QuestionsLocalRepository implements IQuestionsLocalReposito
         copy[index] = updatedQuestion;
         this._questions.value = copy;
         this._question.value = updatedQuestion;
+        console.log('✅ QuestionsLocalRepository: question updated, new image:', updatedQuestion.image);
     }
 
     public addQuestion(question: Question) {

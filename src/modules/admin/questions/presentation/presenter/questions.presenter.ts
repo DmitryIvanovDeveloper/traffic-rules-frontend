@@ -45,18 +45,23 @@ export default class QuestionsPresenter {
     
     private presentQuestion(): QuestionViewModel | null{
         const question = this._repository.getQuestion().value;
+        console.log('🎭 QuestionsPresenter: presentQuestion called, question:', question);
         if (!question) {
+            console.log('❌ QuestionsPresenter: no question found');
             return null;
         }
 
+        console.log('🎭 QuestionsPresenter: creating ViewModel with image:', question.image);
         const viewModel = new QuestionViewModel(question);
         const errors = this._repository.getQuestionsErrors().value;
         const expectedError = errors.find(error => error.id === question.id);
         if (!expectedError) {
+            console.log('✅ QuestionsPresenter: returning ViewModel');
             return viewModel
         }
         
         viewModel.setError(expectedError);
+        console.log('✅ QuestionsPresenter: returning ViewModel with errors');
         return viewModel;
     }
 } 
