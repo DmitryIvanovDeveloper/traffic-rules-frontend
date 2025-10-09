@@ -23,11 +23,24 @@ const initializeModelData = (model: any) => {
         console.log('Модель:', model);
         
         modelName.value = model.name;
-        attributes.value = model.attributes.map((attr: any) => ({
-            name: attr.key,
-            value: Array.isArray(attr.values) ? attr.values.join(', ') : String(attr.values)
-        }));
-        states.value = [...model.states];
+        
+        // Инициализируем атрибуты (если пусто - добавляем дефолтный)
+        if (model.attributes && model.attributes.length > 0) {
+            attributes.value = model.attributes.map((attr: any) => ({
+                name: attr.key,
+                value: Array.isArray(attr.values) ? attr.values.join(', ') : String(attr.values)
+            }));
+        } else {
+            attributes.value = [{ name: 'Марка', value: '' }];
+        }
+        
+        // Инициализируем состояния (если пусто - добавляем дефолтное)
+        if (model.states && model.states.length > 0) {
+            states.value = [...model.states];
+        } else {
+            states.value = [{ type: 0, image: null, price: 0 }];
+        }
+        
         isPublished.value = model.isPublished;
     }
 };
