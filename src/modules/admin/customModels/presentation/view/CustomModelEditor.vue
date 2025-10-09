@@ -218,20 +218,20 @@ const saveModel = async (): Promise<void> => {
 
 const canSave = computed(() => {
     const hasName = modelName.value.trim() !== '';
-    const hasAttributes = attributes.value.length > 0;
-    const attributesFilled = attributes.value.every(attr => attr.name.trim() !== '' && attr.value.trim() !== '');
     const hasStates = states.value.length > 0;
     const statesValid = states.value.every(state => state.price >= 0);
     
+    // Проверяем, что если есть атрибуты, они должны быть заполнены
+    const attributesFilled = attributes.value.length === 0 || attributes.value.every(attr => attr.name.trim() !== '' && attr.value.trim() !== '');
+    
     console.log('=== canSave проверка ===');
     console.log('Название заполнено:', hasName, '(', modelName.value, ')');
-    console.log('Есть атрибуты:', hasAttributes, '(', attributes.value.length, ')');
-    console.log('Атрибуты заполнены:', attributesFilled, attributes.value);
+    console.log('Атрибуты валидны:', attributesFilled, '(количество:', attributes.value.length, ')');
     console.log('Есть состояния:', hasStates, '(', states.value.length, ')');
     console.log('Состояния валидны:', statesValid);
-    console.log('Итого canSave:', hasName && hasAttributes && attributesFilled && hasStates && statesValid);
+    console.log('Итого canSave:', hasName && attributesFilled && hasStates && statesValid);
     
-    return hasName && hasAttributes && attributesFilled && hasStates && statesValid;
+    return hasName && attributesFilled && hasStates && statesValid;
 });
 </script>
 
@@ -393,8 +393,7 @@ const canSave = computed(() => {
                 </p>
                 <ul class="text-sm text-yellow-700 mt-2 ml-4 list-disc">
                     <li v-if="modelName.trim() === ''">Заполнить название модели</li>
-                    <li v-if="attributes.length === 0">Добавить хотя бы один атрибут</li>
-                    <li v-if="attributes.some(attr => attr.name.trim() === '' || attr.value.trim() === '')">Заполнить все поля атрибутов</li>
+                    <li v-if="attributes.length > 0 && attributes.some(attr => attr.name.trim() === '' || attr.value.trim() === '')">Заполнить все поля атрибутов</li>
                     <li v-if="states.length === 0">Добавить хотя бы одно состояние</li>
                 </ul>
             </div>
