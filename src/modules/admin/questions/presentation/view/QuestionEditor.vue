@@ -24,15 +24,6 @@ onMounted(() => {
 	}
 });
 
-// Initialize image preview when question changes
-watch(() => presenter.questionViewModel.value, (newQuestion) => {
-	if (newQuestion?.image.value) {
-		imagePreview.value = newQuestion.image.value;
-	} else {
-		imagePreview.value = null;
-	}
-}, { immediate: true });
-
 const selectQuestion = (id: string): void => {
 	controller.selectQuestion(id);
 };
@@ -43,6 +34,15 @@ const dragOverItemId = ref<string | null>(null);
 // Image upload functionality
 const imageInputRef = ref<HTMLInputElement | null>(null);
 const imagePreview = ref<string | null>(null);
+
+// Initialize image preview when question changes
+watch(() => presenter.questionViewModel.value, (newQuestion) => {
+	if (newQuestion?.image.value) {
+		imagePreview.value = newQuestion.image.value;
+	} else {
+		imagePreview.value = null;
+	}
+}, { immediate: true });
 
 const handleImageUpload = (event: Event) => {
     const target = event.target as HTMLInputElement;

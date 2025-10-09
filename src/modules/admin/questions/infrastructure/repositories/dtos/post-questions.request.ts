@@ -3,7 +3,7 @@ import { CreateAnswerRequest, CreateQuestionRequest } from "../../../business/dt
 export class PostQuestionRequest {
   readonly lang_iso: string;
   readonly text: string;
-  readonly points: number;
+  readonly points: number;  
   readonly level_id: string;
   readonly image: string | null;
   readonly answers: Array<PostAnswerRequest>;
