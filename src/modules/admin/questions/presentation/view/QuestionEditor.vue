@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 import { container } from "@/infrastructure/bootstrap/inversify.config";
 import { TYPES } from "../../types";
 import QuestionsController from "../controller/questions.controller";
@@ -37,12 +37,15 @@ const imagePreview = ref<string | null>(null);
 
 // Initialize image preview when question changes
 watch(() => presenter.questionViewModel.value, (newQuestion) => {
-	if (newQuestion?.image.value) {
+	console.log('🔍 QuestionEditor: question changed', newQuestion);
+	if (newQuestion?.image.value && newQuestion.image.value.trim() !== '') {
+		console.log('🖼️ QuestionEditor: setting image preview', newQuestion.image.value);
 		imagePreview.value = newQuestion.image.value;
 	} else {
+		console.log('🖼️ QuestionEditor: no image, clearing preview');
 		imagePreview.value = null;
 	}
-}, { immediate: true });
+}, { immediate: true, deep: true });
 
 const handleImageUpload = (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -83,6 +86,12 @@ const removeImage = () => {
 const openImageSelector = () => {
     imageInputRef.value?.click();
 };
+
+// Computed property for current image
+const currentImage = computed(() => {
+    const vmImage = presenter.questionViewModel.value?.image.value;
+    return imagePreview.value || (vmImage && vmImage.trim() !== '' ? vmImage : null);
+});
 
 function onDragStart(itemId: string) {
     draggedItemId.value = itemId;
@@ -138,9 +147,9 @@ function onDrop(targetItemId: string) {
 				/>
 				
 				<!-- Image preview or upload button -->
-				<div v-if="imagePreview || presenter.questionViewModel.value.image.value" class="relative">
+				<div v-if="currentImage" class="relative">
 					<img
-						:src="imagePreview || presenter.questionViewModel.value.image.value"
+						:src="currentImage"
 						alt="Question image preview"
 						class="w-full max-w-md h-48 object-cover rounded-lg border border-gray-300"
 					/>

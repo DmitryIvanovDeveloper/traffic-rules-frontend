@@ -212,6 +212,8 @@ export default class Question {
 			throw new Error(`Invalid Question data: missing required fields. Data: ${JSON.stringify(dto)}`);
 		}
 
+		console.log('🖼️ Question.toEntity: creating question with image', dto.image);
+
 		const answers = (dto.answers || []).map(
 			(a) => new Answer({id: a.id, text: a.text, correct: a.correct, lang:a.lang, questionId: a.questionId})
 		);

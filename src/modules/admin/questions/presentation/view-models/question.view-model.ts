@@ -24,7 +24,7 @@ export default class QuestionViewModel {
 		this.id = question.id;
 		this.name.value = question.text;
 		this.points.value = question.points;
-		this.image.value = question.image;
+		this.image.value = question.image || "";
 		this.levelId = question.levelId;
 		this.answers = question.answers.map(answer => new AnswerViewModel(answer, question.showErrors)).sort((a, b) => a.order - b.order);
 		this.edited = question.edited ?? false;

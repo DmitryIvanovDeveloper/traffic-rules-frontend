@@ -7,6 +7,8 @@ import PostQuestionResponse from "./post-questions.request";
 export function mapQuestionsResponseToDto(rawData: GetQuestionsResponse): LoadQuestionResponse {
     const { id, text, points, level_id, answers, lang_iso, image } = rawData;
 
+    console.log('🖼️ mapQuestionsResponseToDto: raw data image', image, 'for question', id);
+
     const mappedAnswers = answers.map(answer => new LoadAnswerResponse(
         answer.id,
         answer.text,
@@ -24,6 +26,8 @@ export function mapQuestionsResponseToDto(rawData: GetQuestionsResponse): LoadQu
         image || null,
         mappedAnswers
     );
+
+    console.log('🖼️ mapQuestionsResponseToDto: mapped question image', mappedQuestion.image);
 
     return mappedQuestion;
 }
