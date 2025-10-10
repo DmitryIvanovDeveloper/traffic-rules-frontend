@@ -99,7 +99,7 @@ const removeAttribute = (index: number) => {
 
 const addState = () => {
     if (!states.value) states.value = [];
-    states.value.push({ type: 0, image: null, price: 0 });
+    states.value.push({ type: 5, image: null, price: 0 });
 };
 
 const removeState = (index: number) => {
@@ -324,10 +324,10 @@ const canSave = computed(() => {
                                     v-model.number="state.type"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 >
-                                    <option :value="0">🟢 Целая модель</option>
-                                    <option :value="1">🟡 Поцарапанная модель</option>
-                                    <option :value="2">🟠 Ломаная модель</option>
-                                    <option :value="3">🔴 Разрушенная модель</option>
+                                    <option :value="5">🟢 Целая модель</option>
+                                    <option :value="6">🟡 Поцарапанная модель</option>
+                                    <option :value="7">🟠 Ломаная модель</option>
+                                    <option :value="8">🔴 Разрушенная модель</option>
                                 </select>
                             </div>
                             

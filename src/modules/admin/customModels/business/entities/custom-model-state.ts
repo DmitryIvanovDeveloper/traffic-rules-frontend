@@ -2,7 +2,7 @@ import { CustomModelStateApiData } from '../types/api.types';
 
 export default class CustomModelState {
     constructor(
-        public readonly type: number, // 1 - целая, 2 - поцарапанная, 3 - ломаная, 4 - разрушенная
+        public readonly type: number, // 5 - целая, 6 - поцарапанная, 7 - ломаная, 8 - разрушенная
         public readonly image: string | null, // base64 изображение
         public readonly price: number
     ) {}
@@ -36,18 +36,22 @@ export default class CustomModelState {
     }
 
     public getDamageTypeName(): string {
-        const types = ['', 'Целая модель', 'Поцарапанная модель', 'Ломаная модель', 'Разрушенная модель'];
+        const types: Record<number, string> = {
+            5: 'Целая модель',
+            6: 'Поцарапанная модель',
+            7: 'Ломаная модель',
+            8: 'Разрушенная модель'
+        };
         return types[this.type] || 'Неизвестный тип';
     }
 
     public getDamageTypeClass(): string {
-        const classes = [
-            '', // 0 - не используется
-            'bg-green-100 text-green-800', // 1 - целая
-            'bg-yellow-100 text-yellow-800', // 2 - поцарапанная
-            'bg-orange-100 text-orange-800', // 3 - ломаная
-            'bg-red-100 text-red-800' // 4 - разрушенная
-        ];
+        const classes: Record<number, string> = {
+            5: 'bg-green-100 text-green-800',
+            6: 'bg-yellow-100 text-yellow-800',
+            7: 'bg-orange-100 text-orange-800',
+            8: 'bg-red-100 text-red-800'
+        };
         return classes[this.type] || 'bg-gray-100 text-gray-800';
     }
 }
