@@ -231,7 +231,7 @@ function onDrop(targetItemId: string) {
 					<Button
 						:disabled="presenter.questionViewModel.value.answers.length >= 4"
 						class="!bg-purple-500  !border-none !text-[#FFFFFF] !px-4 !py-2 rounded" 
-						:onclick="() => controller.addNewAnswer()"
+						@click="controller.addNewAnswer()"
 					>
 						{{ presenter.labels.addAnswer }}
 					</Button>
