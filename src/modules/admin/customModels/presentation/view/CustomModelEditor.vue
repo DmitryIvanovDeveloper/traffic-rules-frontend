@@ -386,18 +386,6 @@ const canSave = computed(() => {
 
         <!-- Кнопка сохранения -->
         <div class="pt-6 border-t border-gray-200">
-            <!-- Подсказка, если кнопка заблокирована -->
-            <div v-if="!canSave" class="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                <p class="text-sm text-yellow-800">
-                    ⚠️ Для сохранения модели необходимо:
-                </p>
-                <ul class="text-sm text-yellow-700 mt-2 ml-4 list-disc">
-                    <li v-if="modelName.trim() === ''">Заполнить название модели</li>
-                    <li v-if="attributes.length > 0 && attributes.some(attr => attr.name.trim() === '' || attr.value.trim() === '')">Заполнить все поля атрибутов</li>
-                    <li v-if="states.length === 0">Добавить хотя бы одно состояние</li>
-                </ul>
-            </div>
-            
             <div class="flex justify-end">
                 <button
                     @click="saveModel"
