@@ -41,8 +41,6 @@ export default class QuestionsPresenter {
 
         return viewModels.sort((a, b) => a.order - b.order);
     })
-    private _currentViewModel: QuestionViewModel | null = null;
-    
     public questionViewModel = computed(() => this.presentQuestion())
     
     private presentQuestion(): QuestionViewModel | null{
@@ -50,30 +48,20 @@ export default class QuestionsPresenter {
         console.log('🎭 QuestionsPresenter: presentQuestion called, question:', question);
         if (!question) {
             console.log('❌ QuestionsPresenter: no question found');
-            this._currentViewModel = null;
             return null;
         }
 
-        // Update existing ViewModel instead of creating new one
-        if (this._currentViewModel && this._currentViewModel.id === question.id) {
-            console.log('🎭 QuestionsPresenter: updating existing ViewModel with image:', question.image);
-            this._currentViewModel.updateImage(question.image);
-            return this._currentViewModel;
-        }
-
-        console.log('🎭 QuestionsPresenter: creating new ViewModel with image:', question.image);
+        console.log('🎭 QuestionsPresenter: creating ViewModel with', question.answers.length, 'answers');
         const viewModel = new QuestionViewModel(question);
         const errors = this._repository.getQuestionsErrors().value;
         const expectedError = errors.find(error => error.id === question.id);
         if (!expectedError) {
-            console.log('✅ QuestionsPresenter: returning new ViewModel');
-            this._currentViewModel = viewModel;
+            console.log('✅ QuestionsPresenter: returning ViewModel');
             return viewModel
         }
         
         viewModel.setError(expectedError);
-        console.log('✅ QuestionsPresenter: returning new ViewModel with errors');
-        this._currentViewModel = viewModel;
+        console.log('✅ QuestionsPresenter: returning ViewModel with errors');
         return viewModel;
     }
 } 

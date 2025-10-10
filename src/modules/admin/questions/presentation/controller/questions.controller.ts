@@ -157,11 +157,19 @@ export default class QuestionsController {
     };
 
     public addNewAnswer() {
+        console.log('🔵 addNewAnswer called');
         const question = this._repository.getQuestion().value;
-        if (!question) return;
+        console.log('📋 Current question:', question);
+        if (!question) {
+            console.log('❌ No question found');
+            return;
+        }
 
+        console.log('📝 Current answers count:', question.answers.length);
         const updatedQuestion = question.withNewAnswer();
+        console.log('✅ Updated question with new answer, answers count:', updatedQuestion.answers.length);
         this._repository.updateQuestions(updatedQuestion);
+        console.log('💾 Repository updated');
     }
 
     public removeAnswer(answerId: string) {
